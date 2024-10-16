@@ -18,15 +18,9 @@ export const Todonode = () => {
     const [filterTodo,setfilterTodo]=useState([])
     axios.defaults.withCredentials= true;
     useEffect(()=>{
-        if(isAscending){
-            getTodos()
-            console.log("des")
-        }
-        else{
+       
             fetchTodos()
-        }
-        
-    },[isAscending])
+    },[])
 
     function fetchTodos(){
         axios.get('https://todo-app-api-nithish.vercel.app/get')
