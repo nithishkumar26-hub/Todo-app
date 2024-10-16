@@ -4,10 +4,15 @@ const cors=require('cors');
 const TodoModel=require('./Models/Todo');
 
 const app= express()
-app.use(cors())
+app.use(cors(
+    {
+        origin:{'https://todo-app-nithish-frontend.vercel.app/'},
+        methods:{"POST","GET","PUT","DELETE","PATCH"}
+    }    
+))
 app.use(express.json())
 
-mongoose.connect('mongodb://127.0.0.1:27017/test')
+mongoose.connect('mongodb+srv://nithishkumar:Snithish2681!@cluster0.d96dl.mongodb.net/test?retryWrites=true&w=majority&appName=Cluster0')
 
 app.post('/add',(req,res) =>{
     const name=req.body.name
