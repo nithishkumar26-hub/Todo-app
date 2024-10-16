@@ -137,7 +137,7 @@ export const Todonode = () => {
         
         
         // setTodo(todo.map((todo)=>todo.id === id ? {...todo,id:todo.id,isCompleted:!todo.isCompleted} : todo))
-        axios.put('https://todo-app-api-nithish.vercel.app/'+todo._id,{isCompleted:todo.isCompleted})
+        axios.put('https://todo-app-api-nithish.vercel.app/update/'+todo._id,{isCompleted:todo.isCompleted})
         .then(result=> {
             fetchTodos()
         })
@@ -146,7 +146,7 @@ export const Todonode = () => {
     }
 
     function handleHeart(todo){
-        axios.put('https://todo-app-api-nithish.vercel.app/'+todo._id,{isFavourite:todo.isFavourite})
+        axios.put('https://todo-app-api-nithish.vercel.app/favoadd/'+todo._id,{isFavourite:todo.isFavourite})
         .then(result => {
             fetchTodos()
         })
