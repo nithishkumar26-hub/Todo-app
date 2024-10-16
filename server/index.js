@@ -7,7 +7,7 @@ const app= express()
 app.use(cors(
     {
         origin: ["https://todo-app-nithish-frontend.vercel.app"],
-        methods: ["POST", "GET", "PUT", "DELETE", "PATCH"],
+        methods: ["POST", "GET"],
         credentials: true
     }    
 ))
