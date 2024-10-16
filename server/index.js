@@ -13,7 +13,7 @@ app.use(cors(
 ))
 app.use(express.json())
 
-mongoose.connect('mongodb+srv://nithishkumar:Snithish2681@cluster0.d96dl.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0')
+mongoose.connect('mongodb+srv://nithishkumar:Snithish2681@cluster0.d96dl.mongodb.net/test?retryWrites=true&w=majority&appName=Cluster0')
 
 app.post('/add',(req,res) =>{
     const name=req.body.name
