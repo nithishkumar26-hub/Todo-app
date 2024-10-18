@@ -4,26 +4,17 @@ const cors=require('cors');
 const TodoModel=require('./Models/Todo');
 
 const app= express()
-app.options('*', cors({
-    origin: "https://todo-app-nithish-frontend.vercel.app",
-    methods: ["POST", "GET"],
-    credentials: true
+app.use(cors({
+    origin: "https://todo-app-nithish-frontend.vercel.app",  // Exact frontend URL
+    methods: ["POST", "GET"],  // Allowed methods
+    credentials: true  // Allow credentials (cookies/headers)
 }));
 
 app.use(express.json())
 
-const uri = 'mongodb+srv://nithishkumar:Snithish2681%21@cluster0.d96dl.mongodb.net/test?retryWrites=true&w=majority&appName=Cluster0';
 
-mongoose.connect(uri, {
-    useNewUrlParser: true,
-    useUnifiedTopology: true
-})
-.then(() => {
-    console.log('MongoDB connected successfully');
-})
-.catch(err => {
-    console.error('Connection error:', err);
-});
+
+mongoose.connect('mongodb+srv://nithishkumar:Snithish2681%21@cluster0.d96dl.mongodb.net/test?retryWrites=true&w=majority&appName=Cluster0')
 
 app.post('/add',(req,res) =>{
     const name=req.body.name
