@@ -14,7 +14,7 @@ app.use(express.json())
 
 
 
-mongoose.connect('mongodb+srv://nithishkumar:Snithish26@todo.18nrk.mongodb.net/?retryWrites=true&w=majority&appName=todo')
+mongoose.connect('mongodb+srv://nithishkumar:Snithish26@todo.18nrk.mongodb.net/todo?retryWrites=true&w=majority&appName=todo')
 
 app.post('/add',(req,res) =>{
     const name=req.body.name
