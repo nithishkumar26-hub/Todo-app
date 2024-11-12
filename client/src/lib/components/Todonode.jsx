@@ -6,7 +6,7 @@ import { Todoinput } from './Todoinput'
 import { Todobutton } from './Todobutton'
 import { Todobody } from './Todobody'
 import Searchfill from "../../assets/searchfill.svg"
-
+import "../../App.css"
 export const Todonode = () => {
     const [todo,setTodo]=useState([])
     const [value,setValue]=useState("")
@@ -16,14 +16,50 @@ export const Todonode = () => {
     const [isAscending,setisAscending]=useState(false)
     const [isSearch,setisSearch]=useState(false)
     const [filterTodo,setfilterTodo]=useState([])
-    axios.defaults.withCredentials= true;
+    const [ip,setIp]=useState(Number)
+    // axios.defaults.withCredentials= true;
     useEffect(()=>{
        
             fetchTodos()
     },[])
 
     function fetchTodos(){
-        axios.get('https://todo-app-api-nithish.vercel.app/get',{withCredentials: true})
+        // axios.get('http://ip-api.com/json/')
+        // .then(response => {
+        //     console.log('Your public IP address:', response.data.query),
+        //     setIp(response.data.query)
+        // })
+        // .catch(error => {
+        //     console.error('Error fetching IP address:', error);
+        // });
+
+        const getLocalIP = (callback) => {
+            const rtc = new RTCPeerConnection({ iceServers: [] });
+            rtc.createDataChannel('');
+      
+            rtc.onicecandidate = (event) => {
+              if (!event || !event.candidate) return;
+      
+              const candidate = event.candidate.candidate;
+              const ipMatch = /([0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3})/.exec(candidate);
+      
+              if (ipMatch) {
+                callback(ipMatch[1]); // Local IP address
+              }
+            };
+      
+            rtc.createOffer()
+              .then((offer) => rtc.setLocalDescription(offer))
+              .catch((error) => console.error('Error creating WebRTC offer:', error));
+          };
+
+        getLocalIP((ip) => {
+            console.log(ipAddress)
+            setIp(ip);
+          });
+    
+
+        axios.get('http://localhost:3001/get',{  withCredentials: true})
         .then(result => (setTodo(result.data),console.log(result.data),setfilterTodo(result.data)))
         .catch(err => console.log(err))
         
@@ -33,7 +69,7 @@ export const Todonode = () => {
     function getTodos(){
        
             
-            axios.get('https://todo-app-api-nithish.vercel.app/sort',{withCredentials: true})
+            axios.get('http://localhost:3001/sort',{withCredentials: true})
             .then(result => setTodo(result.data),setfilterTodo(result.data))
             .catch(err => console.log(err))
         
@@ -79,7 +115,7 @@ export const Todonode = () => {
     function handleAdd(){
         // setTodo([...todo,{id:todo.length+1,name:value,isCompleted:false}])
         
-        axios.post('https://todo-app-api-nithish.vercel.app/add',{name: value, id:todo.length+1, withCredentials: true})
+        axios.post('http://localhost:3001/add',{name: value, id:todo.length+1, ipAddress:ip ,withCredentials: true})
         .then(result => {
             fetchTodos()
         }
@@ -91,7 +127,7 @@ export const Todonode = () => {
 
     function handleEdited(id){
        
-        axios.patch('https://todo-app-api-nithish.vercel.app/update/'+id,{name: value, withCredentials: true})
+        axios.patch('http://localhost:3001/update/'+id,{name: value, withCredentials: true})
         .then(result => {
             fetchTodos()
         })
@@ -111,7 +147,7 @@ export const Todonode = () => {
     function handleDelete(id){
         // setTodo(todo.filter((todos)=>id!== todos.id))
         
-        axios.delete('https://todo-app-api-nithish.vercel.app/delete/'+id,{withCredentials: true})
+        axios.delete('http://localhost:3001/delete/'+id,{withCredentials: true})
         .then(result => {
             fetchTodos()
         })
@@ -131,7 +167,7 @@ export const Todonode = () => {
         
         
         // setTodo(todo.map((todo)=>todo.id === id ? {...todo,id:todo.id,isCompleted:!todo.isCompleted} : todo))
-        axios.put('https://todo-app-api-nithish.vercel.app/update/'+todo._id,{isCompleted:todo.isCompleted, withCredentials: true})
+        axios.put('http://localhost:3001/update/'+todo._id,{isCompleted:todo.isCompleted, withCredentials: true})
         .then(result=> {
             fetchTodos()
         })
@@ -140,7 +176,7 @@ export const Todonode = () => {
     }
 
     function handleHeart(todo){
-        axios.put('https://todo-app-api-nithish.vercel.app/favoadd/'+todo._id,{isFavourite:todo.isFavourite, withCredentials: true})
+        axios.put('http://localhost:3001/favoadd/'+todo._id,{isFavourite:todo.isFavourite, withCredentials: true})
         .then(result => {
             fetchTodos()
         })
@@ -175,7 +211,7 @@ export const Todonode = () => {
     }
 
   return (
-    <div className='w-full min-h-screen   flex justify-center '>
+    <div className='w-full min-h-screen   flex justify-center' id='background'>
        
         <div className='pt-5 flex flex-col items-center w-[40%] max-xl:w-[70%] max-sm:w-[90%] max-md:w-[70%] max-lg:w-[70%] fixed   '>
         {alert ?(

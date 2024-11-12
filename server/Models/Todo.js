@@ -7,11 +7,16 @@ const TodoSchema= new mongoose.Schema({
         default:false
     },
     _id: Number,
+    ipAddress: String,
     isFavourite:{
         type:Boolean,
         default:false
-    }
+    },
+    username: String,
+    password: String
+    
 })
+
 
 const TodoModel = mongoose.model("todos",TodoSchema)
 module.exports=TodoModel

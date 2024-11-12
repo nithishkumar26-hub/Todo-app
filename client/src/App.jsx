@@ -1,12 +1,19 @@
 import React from 'react'
-// import { Todo } from './lib/components/todo'
+import { Signinpage } from './lib/components/Signinpage'
 import { Todonode } from './lib/components/Todonode'
+import {BrowserRouter, Routes, Route} from "react-router-dom"
 
 
 const App = () => {
   return (
     <div className='font-poppins'>
-      <Todonode/>
+      <BrowserRouter>
+          <Routes>
+              <Route path="/" element={<Signinpage/>}/>
+              <Route path="/Todo" element={<Todonode/>}/>
+          </Routes>
+      </BrowserRouter>
+      
     </div>
   )
 }

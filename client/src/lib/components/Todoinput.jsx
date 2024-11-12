@@ -1,6 +1,6 @@
 import React from 'react'
 
-export const Todoinput = ({value,setValue,handleClick,placeholder,disabled,filterTodos,isSearch}) => {
+export const Todoinput = ({value,setValue,handleClick,placeholder,disabled,filterTodos,isSearch,type,maxLength}) => {
     function handleChange(e){
        
         setValue(e.target.value)
@@ -18,7 +18,7 @@ export const Todoinput = ({value,setValue,handleClick,placeholder,disabled,filte
   return (
     
     <>
-         <input value={value} type='text' maxLength={50} placeholder={placeholder} className='w-[80%] h-[50px] pl-2 text-base placeholder-gray-400 bg-[rgba(0,0,0,0.5)] text-white
+         <input value={value} type={type} maxLength={maxLength} placeholder={placeholder} className='w-[100%] h-[50px] pl-2 text-base placeholder-gray-400 bg-[rgba(0,0,0,0.5)] text-white
         rounded py-2 px-2 border-none outline-none' onChange={(e)=>handleChange(e)} onKeyDown={(e)=>handleDown(e)} disabled={disabled} />
     </>
   )

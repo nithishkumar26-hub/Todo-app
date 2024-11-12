@@ -5,8 +5,8 @@ const TodoModel=require('./Models/Todo');
 
 const app= express()
 app.use(cors({
-    origin: "https://todo-app-nithish-frontend.vercel.app",  // Exact frontend URL
-    methods: ["POST", "GET", "PUT", "DELETE", "PATCH"],  // Allowed methods
+    origin: "http://localhost:5173",  // Exact frontend URL
+    // methods: ["POST", "GET", "PUT", "DELETE", "PATCH"],  // Allowed methods
     credentials: true  // Allow credentials (cookies/headers)
 }));
 
@@ -14,17 +14,22 @@ app.use(express.json())
 
 
 
-mongoose.connect('mongodb+srv://nithishkumar:Snithish26@todo.18nrk.mongodb.net/todo?retryWrites=true&w=majority&appName=todo')
+mongoose.connect('mongodb://localhost:27017/test')
+
+
 
 app.post('/add',(req,res) =>{
     const name=req.body.name
     const id=req.body.id
-    
+    var ip=req.body.ipAddress
+    console.log(ip)
     TodoModel.create({
         name:name,
-        _id:id
+        _id:id,
+        ipAddress:ip
     }).then(result => res.json(result))
     .catch(err => res.json(err))
+
 })
 
 // app.post('/sort',(req,res) =>{
@@ -60,6 +65,8 @@ app.get('/sortas',(req,res)=>{
     .catch(err => res.json(err))
 })
 
+
+app.set('trust proxy', true);
 app.get('/get',(req,res)=>{
     
     TodoModel.find()

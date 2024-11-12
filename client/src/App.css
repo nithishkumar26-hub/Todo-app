@@ -1,0 +1,16 @@
+#background{
+    background-image: url('./assets/pexels.jpg');
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center center;
+    width: 100%;
+}
+
+#bgsignin{
+    background-image: url('./assets/bg-todo.jpeg');
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center center;
+    width: 100%;
+    min-height: 100dvh;
+}
